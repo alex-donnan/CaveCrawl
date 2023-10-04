@@ -860,7 +860,7 @@
         {"name":"g_ChromaSpreadAmount","type":0,"value":"0.5",},
         {"name":"g_CamOffsetScale","type":0,"value":"1",},
         {"name":"g_DistortTexture","type":2,"value":"_filter_heathaze_noise_sprite",},
-      ],"userdefinedDepth":false,"visible":true,},
+      ],"userdefinedDepth":false,"visible":false,},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"RockCover","depth":-4700,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_6467C7F0","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"o_rock_cover","path":"objects/o_rock_cover/o_rock_cover.yy",},"properties":[],"rotation":0.0,"scaleX":23.0,"scaleY":23.5,"x":480.0,"y":2864.0,},
       ],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},

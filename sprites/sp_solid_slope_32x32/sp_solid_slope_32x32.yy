@@ -2,9 +2,9 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "sp_solid_slope_32x32",
-  "bbox_bottom": 31,
+  "bbox_bottom": 33,
   "bbox_left": 0,
-  "bbox_right": 31,
+  "bbox_right": 33,
   "bbox_top": 0,
   "bboxMode": 0,
   "collisionKind": 0,
@@ -17,7 +17,7 @@
   ],
   "gridX": 0,
   "gridY": 0,
-  "height": 32,
+  "height": 34,
   "HTile": false,
   "layers": [
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"49392694-6af9-46c5-ac7a-23538420ab3a","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
@@ -70,5 +70,5 @@
   },
   "type": 0,
   "VTile": false,
-  "width": 32,
+  "width": 34,
 }

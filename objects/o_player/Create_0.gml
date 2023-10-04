@@ -167,11 +167,23 @@ Joint = function(_name = "Joint", _player, _x, _y, _grab = false) constructor {
 			}
 		);
 		
-		if (collision_point(x + vx, y + vy, o_solid, 1, true) || collision_point(x + vx, y + vy, o_solid_slope, 1, true)) {
+		var vxs = sign(vx) == 0 ? 1 : sign(vx);
+		var vys = sign(vy) == 0 ? 1 : sign(vy);
+		if (collision_point(x + vx + vxs, y + vy + vys, o_solid_slope, 1, true)) {
 			var dir = point_direction(x + vx, y + vy, x, y);
-			while (collision_point(x + vx, y + vy, o_solid, 1, true) || collision_point(x + vx, y + vy, o_solid_slope, 1, true)) {
-				vx += lengthdir_x(0.1, dir);
-				vy += lengthdir_y(0.1, dir);
+			while (collision_point(x + vx + vxs, y + vy + vys, o_solid_slope, 1, true)) {
+				vx += lengthdir_x(0.5, dir);
+				vy += lengthdir_y(0.5, dir);
+			}
+		}
+
+		vxs = sign(vx) == 0 ? 1 : sign(vx);
+		vys = sign(vy) == 0 ? 1 : sign(vy);
+		if (collision_point(x + vx + vxs, y + vy + vys, o_solid, 1, true)) {
+			var dir = point_direction(x + vx, y + vy, x, y);
+			while (collision_point(x + vx + vxs, y + vy + vys, o_solid, 1, true)) {
+				vx += lengthdir_x(0.5, dir);
+				vy += lengthdir_y(0.5, dir);
 			}
 		}
 		
