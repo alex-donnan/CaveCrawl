@@ -1,5 +1,7 @@
 /// @description Draw all joints
 
+depth = -4000;
+
 var head = point_direction(body.l_hip.x, body.l_hip.y, body.l_shoulder.x, body.l_shoulder.y);
 var head_ldx = lengthdir_x(24, head);
 var head_ldy = lengthdir_y(24, head);
@@ -46,13 +48,6 @@ draw_sprite_pos(sp_leg_lower, 0,
 	limb.l_foot.x + ll_leg_ildx, limb.l_foot.y + ll_leg_ildy,
 	1
 );
-
-var lh_sub = limb.l_foot.lock ? 1 : 0;
-var lh_scale = limb.l_foot.lock ? 1.1 : 1;
-draw_sprite_ext(sp_foot, lh_sub,
-	limb.l_foot.x, limb.l_foot.y,
-	lh_scale, lh_scale,
-	ll_leg + 90, c_white, 1);
 	
 //Right Arm
 var ru_leg = point_direction(body.r_hip.x, body.r_hip.y, limb.r_knee.x, limb.r_knee.y);
@@ -81,14 +76,6 @@ draw_sprite_pos(sp_leg_lower, 0,
 	1
 );
 
-var rh_sub = limb.r_foot.lock ? 1 : 0;
-var rh_scale = limb.r_foot.lock ? 1.1 : 1;
-var rh_scale_x = angle_difference(ru_leg, rl_leg) > 25 ? -1 : 1;
-draw_sprite_ext(sp_foot, rh_sub,
-	limb.r_foot.x, limb.r_foot.y,
-	-rh_scale * rh_scale_x, rh_scale,
-	rl_leg + 90, c_white, 1);
-
 // Left Hand
 var lu_arm = point_direction(body.l_shoulder.x, body.l_shoulder.y, limb.l_elbow.x, limb.l_elbow.y);
 var lu_arm_ldx = lengthdir_x(6, lu_arm + 90);
@@ -115,14 +102,6 @@ draw_sprite_pos(sp_arm_lower, 0,
 	limb.l_hand.x + ll_arm_ildx, limb.l_hand.y + ll_arm_ildy,
 	1
 );
-
-var lh_sub = limb.l_hand.lock ? 1 : 0;
-var lh_scale = limb.l_hand.lock ? 1.1 : 1;
-var lh_scale_x = angle_difference(lu_arm, ll_arm) < -25 ? -1 : 1;
-draw_sprite_ext(sp_hand, lh_sub,
-	limb.l_hand.x, limb.l_hand.y,
-	lh_scale * lh_scale_x, lh_scale,
-	ll_arm + 90, c_white, 1);
 
 //Right Arm
 var ru_arm = point_direction(body.r_shoulder.x, body.r_shoulder.y, limb.r_elbow.x, limb.r_elbow.y);
@@ -151,10 +130,42 @@ draw_sprite_pos(sp_arm_lower, 0,
 	1
 );
 
+//Hands and feet
+
+var lh_sub = limb.l_foot.lock ? 1 : 0;
+var lh_scale = limb.l_foot.lock ? 1.1 : 1;
+var follow = limb.l_foot.mouse_follow;
+draw_sprite_ext(sp_foot, lh_sub,
+	limb.l_foot.x, limb.l_foot.y,
+	lh_scale, lh_scale,
+	ll_leg + 90, c_white, 1);
+
+
+var rh_sub = limb.r_foot.lock ? 1 : 0;
+var rh_scale = limb.r_foot.lock ? 1.1 : 1;
+follow = follow || limb.r_foot.mouse_follow;
+var rh_scale_x = angle_difference(ru_leg, rl_leg) > 25 ? -1 : 1;
+draw_sprite_ext(sp_foot, rh_sub,
+	limb.r_foot.x, limb.r_foot.y,
+	-rh_scale * rh_scale_x, rh_scale,
+	rl_leg + 90, c_white, 1);
+
+var lh_sub = limb.l_hand.lock ? 1 : 0;
+var lh_scale = limb.l_hand.lock ? 1.1 : 1;
+follow = follow || limb.l_hand.mouse_follow;
+var lh_scale_x = angle_difference(lu_arm, ll_arm) < -25 ? -1 : 1;
+draw_sprite_ext(sp_hand, lh_sub,
+	limb.l_hand.x, limb.l_hand.y,
+	lh_scale * lh_scale_x, lh_scale,
+	ll_arm + 90, c_white, 1);
+	
 var rh_sub = limb.r_hand.lock ? 1 : 0;
 var rh_scale = limb.r_hand.lock ? 1.1 : 1;
+follow = follow || limb.r_foot.mouse_follow;
 var rh_scale_x = angle_difference(ru_arm, rl_arm) > 25 ? -1 : 1;
 draw_sprite_ext(sp_hand, rh_sub,
 	limb.r_hand.x, limb.r_hand.y,
 	-rh_scale * rh_scale_x, rh_scale,
 	rl_arm + 90, c_white, 1);
+	
+if (follow) draw_circle(device_mouse_x(0), device_mouse_y(0), 6, true);

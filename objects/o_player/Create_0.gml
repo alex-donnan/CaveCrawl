@@ -94,7 +94,7 @@ Joint = function(_name = "Joint", _player, _x, _y, _grab = false) constructor {
 				(
 					null(player.selected) &&
 					device_mouse_check_button(0, mb_left) &&
-					point_distance(device_mouse_x(0), device_mouse_y(0), x, y) <= 6
+					point_distance(device_mouse_x(0), device_mouse_y(0), x, y) <= 12
 				) : mouse_follow;
 			
 			if (mouse_follow) {
@@ -126,6 +126,7 @@ Joint = function(_name = "Joint", _player, _x, _y, _grab = false) constructor {
 			function (_el, _ind) {				
 				var dist = point_distance(x + vx, y + vy, _el.x + _el.vx, _el.y + _el.vy);
 				var dir = point_direction(_el.x + _el.vx, _el.y + _el.vy, x + vx, y + vy);
+				//Not the appropriate distance?
 				if (dist != child_len[_ind]) {
 					var new_dist = dist - child_len[_ind];
 					if (!_el.lock && !lock) {
@@ -144,6 +145,25 @@ Joint = function(_name = "Joint", _player, _x, _y, _grab = false) constructor {
 						_el.lock = false;
 					}
 				}
+				
+				//Bone to collide with wall?
+				var col = collision_line(x + vx, y + vy, _el.x + _el.vx, _el.y + _el.vy, o_solid, 1, true);
+				col = (null(col)) ? collision_line(x + vx, y + vy, _el.x + _el.vx, _el.y + _el.vy, o_solid_slope, 1, true) : col;
+				if (!null(col)) {
+					if (!_el.lock) {
+						var dir = point_direction(col.x + col.sprite_width / 2, col.y + col.sprite_height / 2, _el.x + _el.vx, _el.y + _el.vy);
+						_el.vx += lengthdir_x(2, dir);
+						_el.vy += lengthdir_y(2, dir);
+					} else if (_el.lock && !lock) {
+						var dir = point_direction(col.x + col.sprite_width / 2, col.y + col.sprite_height / 2, x + vx, y + vy);
+						vx += lengthdir_x(2, dir);
+						vy += lengthdir_y(2, dir);
+					} else if (_el.lock && lock) {
+						lock = false;
+						_el.lock = false;
+					}
+				}
+				
 			}
 		);
 		
