@@ -134,7 +134,6 @@ draw_sprite_pos(sp_arm_lower, 0,
 
 var lh_sub = limb.l_foot.lock ? 1 : 0;
 var lh_scale = limb.l_foot.lock ? 1.1 : 1;
-var follow = limb.l_foot.mouse_follow;
 draw_sprite_ext(sp_foot, lh_sub,
 	limb.l_foot.x, limb.l_foot.y,
 	lh_scale, lh_scale,
@@ -143,7 +142,6 @@ draw_sprite_ext(sp_foot, lh_sub,
 
 var rh_sub = limb.r_foot.lock ? 1 : 0;
 var rh_scale = limb.r_foot.lock ? 1.1 : 1;
-follow = follow || limb.r_foot.mouse_follow;
 var rh_scale_x = angle_difference(ru_leg, rl_leg) > 25 ? -1 : 1;
 draw_sprite_ext(sp_foot, rh_sub,
 	limb.r_foot.x, limb.r_foot.y,
@@ -152,7 +150,6 @@ draw_sprite_ext(sp_foot, rh_sub,
 
 var lh_sub = limb.l_hand.lock ? 1 : 0;
 var lh_scale = limb.l_hand.lock ? 1.1 : 1;
-follow = follow || limb.l_hand.mouse_follow;
 var lh_scale_x = angle_difference(lu_arm, ll_arm) < -25 ? -1 : 1;
 draw_sprite_ext(sp_hand, lh_sub,
 	limb.l_hand.x, limb.l_hand.y,
@@ -161,11 +158,12 @@ draw_sprite_ext(sp_hand, lh_sub,
 	
 var rh_sub = limb.r_hand.lock ? 1 : 0;
 var rh_scale = limb.r_hand.lock ? 1.1 : 1;
-follow = follow || limb.r_foot.mouse_follow;
 var rh_scale_x = angle_difference(ru_arm, rl_arm) > 25 ? -1 : 1;
 draw_sprite_ext(sp_hand, rh_sub,
 	limb.r_hand.x, limb.r_hand.y,
 	-rh_scale * rh_scale_x, rh_scale,
 	rl_arm + 90, c_white, 1);
 	
-if (follow) draw_circle(device_mouse_x(0), device_mouse_y(0), 6, true);
+//if (limb.l_foot.mouse_follow || limb.r_foot.mouse_follow || limb.l_hand.mouse_follow || limb.r_hand.mouse_follow) {
+//	draw_circle(device_mouse_x(0), device_mouse_y(0), 6, true);
+//}
